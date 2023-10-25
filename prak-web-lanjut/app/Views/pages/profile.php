@@ -1,6 +1,12 @@
 <!-- JUMBOTRON -->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
+</head>
+
 <section class="jumbotron text-center">
-    <img src="<?= base_url('/assets/images/lopuol.jpg') ?>" alt="" width="200px"
+    <img src="<?= $user['foto'] ?? 'https://i2.wp.com/blog.tripcetera.com/id/wp-content/uploads/2020/10/Danau-Toba-edited.jpg'?>" alt="" width="200px"
         class="rounded-circle img-thumbnail shadow-lg" />
     <h1 class="display-4">PROFILE</h1>
     <hr class="my-4" />
@@ -15,7 +21,7 @@
                 </td>
                 <td>
                     <p class="lead">
-                        <?= $nama; ?>
+                        <?= $user['nama']; ?>
                     </p>
                 </td>
             </tr>
@@ -29,7 +35,7 @@
                 </td>
                 <td>
                     <p class="lead">
-                        <?= $kelas; ?>
+                        <?= $user['nama_kelas']; ?>
                     </p>
                 </td>
             </tr>
@@ -42,7 +48,7 @@
                 </td>
                 <td>
                     <p class="lead">
-                        <?= $npm; ?>
+                        <?= $user['npm']; ?>
                     </p>
                 </td>
             </tr>

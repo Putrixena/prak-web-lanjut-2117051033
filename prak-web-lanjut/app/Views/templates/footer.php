@@ -1,9 +1,6 @@
 <!-- FOOTER -->
 <footer class="footer text-white text-center pb-5">
-    <p>
-        Credit <i class="bi bi-heart-fill text-danger"></i> by
-        <a href="https://www.instagram.com/lolipoppenak_/" class="text-whiteb fw-bold link"> Nathan </a>
-    </p>
+
 </footer>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

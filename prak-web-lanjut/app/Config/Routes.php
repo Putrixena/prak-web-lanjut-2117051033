@@ -23,3 +23,10 @@ $routes->post('/user/store', [UserController::class, 'store']);
 $routes->get('/profile/(:any)', [Home::class, 'profile']);
 
 $routes->get('/pages', [Pages::class, 'index']);
+
+$routes->get('/user', [UserController::class, 'index']);
+
+$routes->get('/user/ (:any)/edit', [UserController::class, 'edit']);
+$routes->put('/user/ (:any)', [UserController::class, 'update']);
+
+$routes->get('user/(:any)', [UserController::class, 'show']);

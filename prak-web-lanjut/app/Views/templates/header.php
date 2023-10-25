@@ -18,7 +18,7 @@
 <body>
     <!-- NAVBAR -->
     <div id="home">
-        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top" style="background-color: salmon">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top" style="background-color: blue">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><b>PROFILE</b></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

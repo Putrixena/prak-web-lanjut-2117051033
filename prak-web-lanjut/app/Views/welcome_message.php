@@ -264,7 +264,7 @@
 
         <div class="heroe">
 
-            <h1>Nathania Santa Nigel Simbolon - 2117051009
+            <h1>Putri Maharani - 2117051033
                 <?= CodeIgniter\CodeIgniter::CI_VERSION ?>
             </h1>
 
