@@ -4,7 +4,7 @@
 
 
 <p class="fw-bold">WEB LANJUT PRAKTIKUM</p>
-<a href="<?=base_url('/user/create')?>">Tambah Data</a>
+<a href="<?=base_url('/user/create')?>" class="btn btn-outline-success">Tambah Data</a>
 <div style="width: 50%;">
 <table class="table table-success table-striped">
     <thead>
@@ -26,7 +26,11 @@
                 <td><?= $user ['nama'] ?></td>
                 <td><?= $user ['npm'] ?></td>
                 <td><?= $user ['nama_kelas'] ?></td>
-                <td> <a href="<?= base_url('user/' . $user['id']) ?>" class="btn btn-outline-success">Detail</a> <button type="button" class="btn btn-outline-success">edit</button></td>
+                <td> <a href="<?= base_url('user/' . $user['id']) ?>" class="btn btn-outline-success">Detail</a> <a href="<?= base_url('user/' . $user['id']. '/edit') ?>" class="btn btn-outline-success">Edit</a>
+                <form action="<?= base_url('user/' . $user['id'])?>" method="post" style="display:inline-block ;">
+                   <input type="hidden" name="_method" value="DELETE">
+                   <?= csrf_field() ?>
+                    <button type="submit" class="btn btn-outline-success">Delete</button></form></td>
             </tr>
             <?php
         }

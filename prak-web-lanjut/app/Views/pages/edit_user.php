@@ -1,11 +1,12 @@
 <?= $this->extend('layouts/app') ?>
 
 <?= $this->section('content') ?>
-<h2>INI HALAMAN CREATE USER</h2><br>
+<h2>INI HALAMAN EDIT USER</h2><br>
 <div class="d-inline-flex p-2">
-<form action="<?= csrf_field() ?> base_url('/user/' . $user['id']) ?>" method="post">
-<input type="hidden" name="_method" value="PUT">
-<label for="nama" class="form-label">Nama:</label>
+<form action="<?= base_url('/user/' . $user['id']) ?>" method="post" enctype="multipart/form-data">
+    <?= csrf_field() ?> 
+    <input type="hidden" name="_method" value="PUT">
+    <label for="nama" class="form-label">Nama:</label>
     <input type="text" name="nama" class="form-control <?= (empty(validation_show_error('nama'))) ? '' : 'is-invalid' ?>" value="<?= $user['nama'] ?>" id="nama">
     <div class='invalid-feedback'><?= validation_show_error('nama'); ?></div><br><br>
 
@@ -19,13 +20,14 @@
 
     <?php foreach($kelas as $item){
                 ?>
-                <option value="<?= $item['id']?>">
+                <option value="<?= $item['id']?>" <?= $user['id_kelas'] == $item['id'] ? 'selected' : '' ?>>
                     <?= $item['nama_kelas']?>
                 </option>
             <?php
             }?>
     </select>
     <div class='invalid-feedback'><?= validation_show_error('kelas'); ?></div><br><br>
+    <input type="file" name="foto" id=""><br><br>
     <input type="submit" value="Kirim">
 </form>
 </div>

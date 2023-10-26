@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
+use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\KelasModel;
 class UserController extends BaseController
@@ -18,11 +19,11 @@ class UserController extends BaseController
     }
 
     public function index(){
-$data = [
-    'title' => 'List User', 
-    'users' => $this->userModel->getUser()
-];
-return view('pages/list_user', $data);
+    $data = [
+        'title' => 'List User', 
+        'users' => $this->userModel->getUser()
+    ];
+    return view('pages/list_user', $data);
     }
     public function profile($page = 'profile')
     {
@@ -74,10 +75,18 @@ return view('pages/list_user', $data);
     {
         $path = 'assets/uploads/img/';
         $foto = $this->request->getFile('foto');
-        $name = $foto->getRandomName();
-
-        if ($foto->move($path, $name)) {
-            $foto = base_url($path . $name);
+        $data=[
+            'nama' => $this->request->getVar('nama'),
+            'npm' => $this->request->getVar('npm'),
+            'id_kelas' => $this->request->getVar('kelas')
+        ];
+        if ($foto->isValid()) {
+            $name = $foto->getRandomName();
+            
+            if ($foto->move($path, $name)) {
+                $foto_path = base_url($path . $name);
+                $data['foto'] = $foto_path;
+            }
         }
         // $userModel = new UserModel();
         if(!$this->validate([
@@ -87,22 +96,15 @@ return view('pages/list_user', $data);
         ])){ 
             return redirect()->back()->withInput();
         }
-        $this->userModel->saveUser([
-            'nama' => $this->request->getVar('nama'),
-            'npm' => $this->request->getVar('npm'),
-            'id_kelas' => $this->request->getVar('kelas'),
-            'foto' => $foto
-
-        ]);
+        $this->userModel->saveUser($data);
         $page = 'create_user';
-        $data = [
-            'nama' => $this->request->getVar('nama'),
-            'kelas' => $this->request->getVar('kelas'),
-            'npm' => $this->request->getVar('npm'),
-            'title' => ''
-        ];
-        return redirect()->to('/user');
-            
+        // $data = [
+        //     'nama' => $this->request->getVar('nama'),
+        //     'kelas' => $this->request->getVar('kelas'),
+        //     'npm' => $this->request->getVar('npm'),
+        //     'title' => ''
+        // ];
+        return redirect()->to('/user');     
     }
 
     public function edit ($id){
@@ -115,7 +117,7 @@ return view('pages/list_user', $data);
             'kelas' => $kelas,
         ];
 
-        return view('edit_user', $data) ;
+        return view('pages/edit_user', $data) ;
 
     }
     public function show($id){
@@ -131,7 +133,43 @@ return view('pages/list_user', $data);
             . view('pages/profile')
             . view('templates/footer');
     }
+    public function update($id) {
+        $path = 'assets/uploads/img/';
 
+        $foto = $this->request->getFile('foto');
+
+        $data = [
+            'nama' => $this->request->getVar('nama'),
+            'id_kelas' => $this->request->getVar('kelas'),
+            'npm' => $this->request->getVar('npm')
+        ];
+
+        if ($foto->isValid()) {
+            $name = $foto->getRandomName();
+
+            if ($foto->move($path, $name)) {
+                $foto_path = base_url($path . $name);
+                $data['foto'] = $foto_path;
+            }
+        }
+
+        $result = $this->userModel->updateUser($data, $id);
+
+        if(!$result){
+            return redirect()->back()->withInput()
+            ->with('error', 'Gagal Menyimpan Data');
+        }
+
+        return redirect()->to('/user');
+    }
+    public function destroy($id){
+        $result = $this->userModel->deleteUser($id);
+        if (!$result) {
+            return redirect()->back()->with('error', 'Gagal Menghapus Data');
+        }
+        return redirect()->to('/user')
+        ->with('success', 'Berhasil Menghapus Data');
+    }
 
 
 }
